@@ -4,7 +4,7 @@ public enum Direction {
     UP,
     DOWN,
     LEFT,
-    RIGHT
+    RIGHT;
 
     /*
     * This method detects if two directions are opposite
