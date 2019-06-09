@@ -32,7 +32,6 @@ public class Grid {
 
     /**
      * return random position
-     * waiting for Position to be written.....
      */
     public Position makeGridPosition() {
         return new Position(this);
@@ -40,7 +39,6 @@ public class Grid {
 
     /**
      * return position
-     * waiting for Position to be written.....
      */
     public Position makeGridPosition(int cols, int rows) {
         return new Position(cols, rows, this);
