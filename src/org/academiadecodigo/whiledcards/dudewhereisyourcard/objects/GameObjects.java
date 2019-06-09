@@ -1,4 +1,4 @@
 package org.academiadecodigo.whiledcards.dudewhereisyourcard.objects;
 
-public class GameObjects {
+public abstract class GameObjects {
 }
