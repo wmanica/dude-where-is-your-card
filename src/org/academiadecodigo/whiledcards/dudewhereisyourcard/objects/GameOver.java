@@ -4,7 +4,7 @@ import org.academiadecodigo.simplegraphics.keyboard.Keyboard;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEvent;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardEventType;
 import org.academiadecodigo.simplegraphics.keyboard.KeyboardHandler;
-import org.academiadecodigo.whiledcards.dudewhereisyourcard.Test;
+import org.academiadecodigo.whiledcards.dudewhereisyourcard.Main;
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.gfx.*;
 
 
@@ -12,13 +12,13 @@ public class GameOver extends GameObject implements KeyboardHandler {
 
     private Position position;
     private Grid grid;
-    private Test game;
+    private Main game;
 
     public GameOver(Grid grid, String picName) {
         super(0,0, grid, picName);
     }
 
-    public void restart(Test game) {
+    public void restart(Main game) {
 
         Keyboard keyboard = new Keyboard(this);
 

@@ -12,7 +12,7 @@ public class Grid {
     private int cols;
     private int rows;
     private int cellSize = 40;
-    private static final int PADDING = 10;
+    private static final int PADDING = 40;
 
     /**
      * constructor
@@ -27,7 +27,7 @@ public class Grid {
      * and the properties
      */
     public void init() {
-        rectangle = new Rectangle(PADDING, PADDING, cols * cellSize, rows * cellSize);
+        rectangle = new Rectangle(10, PADDING, cols * cellSize, rows * cellSize);
         rectangle.draw();
         //Picture picture = new Picture(10,10, "background700x700.png");
         //picture.draw();
@@ -66,7 +66,7 @@ public class Grid {
      * @return
      */
     public int colToX(int cols) {
-        return cellSize * cols + PADDING;
+        return cellSize * cols + 10;
     }
 
     public int getWidth() {

@@ -1,4 +1,4 @@
-package org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characteres;
+package org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characters;
 
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.gfx.Direction;
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.gfx.DirectionRandomizable;
@@ -78,5 +78,12 @@ public class Guard extends Person implements DirectionRandomizable {
     @Override
     public Direction chooseDirection() {
         return null;
+    }
+
+    /**
+     * Used to increase speed one by one for the Guard
+     */
+    public void increaseSpeed() {
+        setSpeed(getSpeed() + 1);
     }
 }

@@ -1,4 +1,4 @@
-package org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characteres;
+package org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characters;
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.gfx.Direction;
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.gfx.Grid;
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.GameObject;
@@ -32,5 +32,17 @@ public abstract class Person extends GameObject {
     public int getSpeed() {
         return speed;
     }
+
+    /**
+     * Used to set Guard speed after getting N cards
+     * Especially to return to the original value
+     * @param speed
+     * @return
+     */
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+
 
 }

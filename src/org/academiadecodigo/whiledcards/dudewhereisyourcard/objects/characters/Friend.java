@@ -1,4 +1,4 @@
-package org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characteres;
+package org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characters;
 
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.gfx.Direction;
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.gfx.DirectionRandomizable;
@@ -10,11 +10,14 @@ public class Friend extends Person implements Catchable, DirectionRandomizable {
     private boolean caught;
     private Direction currentDirection;
     private int directionChangeLevel = 5;
+    private boolean present;
 
 
     public Friend(Grid grid, String picName, int speed) {
         super(grid, picName, speed);
         currentDirection = Direction.values()[(int) (Math.random() * Direction.values().length)];
+        getPosition().hide();
+        caught = true;
     }
 
     @Override
@@ -31,6 +34,15 @@ public class Friend extends Person implements Catchable, DirectionRandomizable {
 
         return newDirection;
 
+    }
+
+    public void show(){
+        getPosition().choosePicture();
+        getPosition().show();
+    }
+
+    public boolean getIspresent(){
+        return present;
     }
 
     public boolean isHittingWall() {
@@ -77,7 +89,10 @@ public class Friend extends Person implements Catchable, DirectionRandomizable {
     }
 
     @Override
-    public void capture(){}
+    public void capture(){
+        getPosition().hide();
+        setCaught();
+    }
 
     @Override
     public void move() {
@@ -91,6 +106,6 @@ public class Friend extends Person implements Catchable, DirectionRandomizable {
 
     @Override
     public void setCaught() {
-        this.caught = !caught;
+        caught = !caught;
     }
 }

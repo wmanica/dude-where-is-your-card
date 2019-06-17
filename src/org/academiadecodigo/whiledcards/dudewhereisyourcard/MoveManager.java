@@ -4,36 +4,59 @@ import org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.Beer;
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.Card;
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.GameObject;
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.gfx.Position;
-import org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characteres.CodeCadet;
-import org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characteres.Friend;
-import org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characteres.Guard;
+import org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characters.CodeCadet;
+import org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characters.Friend;
+import org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characters.Guard;
 
-public class CollisionDetector {
+public class MoveManager {
     private GameObject[] gameObjects;
     private Position cadetPosition;
+    private int cadetMoves;
+    private Position friendPosition;
+    private Guard managerGuard;
+    private Friend managerFriend;
+    private CodeCadet managerCadet;
 
-    public CollisionDetector(GameObject[] gameObjects) {
+    public MoveManager(GameObject[] gameObjects) {
         this.gameObjects = gameObjects;
     }
 
-    public void isUnSafe() {
+    public void manage() {
 
         for (GameObject o : gameObjects) {
 
             if (o instanceof CodeCadet) {
+                managerCadet = ((CodeCadet) o);
                 cadetPosition = o.getPosition();
+                if(!managerCadet.isDrunk()){
+                    cadetMoves=cadetMoves + ((CodeCadet) o).sendmove();
+                }
+
                 checkCadet(o);
 
             } else if (o instanceof Guard) {
+                managerGuard = ((Guard) o);
+                if(managerFriend.isCaught()){
+                    managerGuard.setTarget(cadetPosition);
+                }else{
+                    managerGuard.setTarget(friendPosition);
+                }
                 checkGuard(o);
-            } else {
-                continue;
-            }
+            }else if(o instanceof Beer){
+                if(cadetMoves==30 && !managerCadet.isDrunk()){
+                    ((Beer) o).refill();
+                    ((Beer) o).setCaught(false);
 
+                }
+            }else if(o instanceof Friend){
+                friendPosition = o.getPosition();
+                managerFriend = ((Friend) o);
+            }
         }
 
 
     }
+
 
     /**
      * Checks for collisions with specific gameObject
@@ -50,6 +73,7 @@ public class CollisionDetector {
                 if (ig.getPosition().getRow() == guard.getPosition().getRow() &&
                         ig.getPosition().getCol() == guard.getPosition().getCol()) {
                     ((Guard) guard).setTarget(cadetPosition);
+                    managerFriend.capture();
                     System.out.println("caught friend");
                 }
             }
@@ -70,7 +94,12 @@ public class CollisionDetector {
                 if (ig.getPosition().getRow() == gameObject.getPosition().getRow() &&
                         ig.getPosition().getCol() == gameObject.getPosition().getCol() && !beer.isCaught()) {
                     System.out.println("DRUNK");
+                    cadetMoves=0;
                     beer.capture();
+                    if(managerFriend.isCaught()) {
+                        managerFriend.setCaught();
+                        managerFriend.show();
+                    }
                     ((CodeCadet) gameObject).setDrunk(); //Cast to CodeCadet
                 }
             }

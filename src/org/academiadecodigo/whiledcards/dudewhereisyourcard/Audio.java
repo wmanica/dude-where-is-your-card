@@ -1,20 +1,20 @@
 package org.academiadecodigo.whiledcards.dudewhereisyourcard;
 
 import javax.sound.sampled.*;
-import java.io.File;
+import java.io.BufferedInputStream;
+import java.io.InputStream;
 
 public class Audio {
 
-    public static void runAudio() {
+    public void runAudio() {
         try {
-            File clipFile = new File("./resources/background-song.wav"); // path to your clip
-            AudioInputStream audioStrmObj = AudioSystem.getAudioInputStream(clipFile);
-            AudioFormat format = audioStrmObj.getFormat();
-            DataLine.Info info = new DataLine.Info(Clip.class, format);
-            Clip audioClip = (Clip) AudioSystem.getLine(info);
-            audioClip.open(audioStrmObj);
-            audioClip.start();
-            audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+            ClassLoader classLoader = Audio.class.getClassLoader();
+            InputStream inputStream = classLoader.getResourceAsStream("song.wav");
+
+                Clip clip = AudioSystem.getClip();
+                AudioInputStream ais = AudioSystem.getAudioInputStream(new BufferedInputStream(inputStream));
+                clip.open(ais);
+                clip.start();
         } catch (Exception ex) {
             System.out.println("NOT");
         }

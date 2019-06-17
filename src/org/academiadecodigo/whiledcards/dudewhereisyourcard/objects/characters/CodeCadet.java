@@ -1,11 +1,9 @@
-package org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characteres;
+package org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.characters;
 
 import org.academiadecodigo.simplegraphics.keyboard.*;
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.gfx.Direction;
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.gfx.Grid;
-import org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.Beer;
 import org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.Catchable;
-import org.academiadecodigo.whiledcards.dudewhereisyourcard.objects.GameObject;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -20,7 +18,8 @@ public class CodeCadet extends Person implements Catchable, KeyboardHandler {
 
     private boolean drunk;
     private boolean caught;
-    private int movementCounter = -1;
+    private int drunkMoves = -1;
+    private int movementCounter;
     private Direction[] array = {Direction.LEFT, Direction.RIGHT, Direction.UP, Direction.UP};
     private List<Direction> shuffledKeys;
 
@@ -38,15 +37,15 @@ public class CodeCadet extends Person implements Catchable, KeyboardHandler {
         return drunk;
     }
 
-    public int getMovementCounter() {
-        return movementCounter;
+    public int getDrunkMoves() {
+        return drunkMoves;
     }
 
     /**
      * Used to reset movement counter to become sober again whenever needed
      */
-    public void resetMovementCounter() {
-        movementCounter = -1;
+    public int getMovementCounter() {
+        return movementCounter;
     }
 
     @Override
@@ -58,6 +57,10 @@ public class CodeCadet extends Person implements Catchable, KeyboardHandler {
         List<Direction> arrayList = Arrays.asList(Direction.values());
         Collections.shuffle(arrayList);
         return arrayList;
+    }
+
+    public int sendmove(){
+        return 1;
     }
 
 
@@ -90,12 +93,12 @@ public class CodeCadet extends Person implements Catchable, KeyboardHandler {
 
     @Override
     public void keyPressed(KeyboardEvent keyboardEvent) {
-
-        if (movementCounter == 70) {
+        sendmove();
+        if (drunkMoves == 70) {
             setDrunk();
-            movementCounter = -1;
+            drunkMoves = -1;
         }
-        if (isDrunk() == true && movementCounter == -1) {
+        if (isDrunk() == true && drunkMoves == -1) {
             shuffledKeys = keyRandomizer();
         }
         if (!isDrunk()) {
@@ -119,7 +122,7 @@ public class CodeCadet extends Person implements Catchable, KeyboardHandler {
             }
         }
         if (isDrunk() == true) {
-            movementCounter++;
+            drunkMoves++;
             if (keyboardEvent.getKey() == KeyboardEvent.KEY_LEFT) {
                 super.walk(shuffledKeys.get(0), super.getSpeed());
             }

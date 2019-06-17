@@ -9,7 +9,7 @@ public class Card extends GameObject implements Catchable {
     private Grid grid;
     // Card attributes
     private boolean caught;
-
+    private int score;
 
     /**
      * constructor
@@ -29,6 +29,13 @@ public class Card extends GameObject implements Catchable {
     // Methods from Interface
 
 
+
+    public int counter() {
+        return score;
+    }
+
+
+
     @Override
     public void capture() {
         setCaught();
@@ -41,6 +48,8 @@ public class Card extends GameObject implements Catchable {
 
     @Override
     public boolean isCaught() {
+        score++;
+        System.out.println(score);
         return caught;
     }
 
@@ -49,5 +58,7 @@ public class Card extends GameObject implements Catchable {
         caught = !caught;
     }
 
-
+    public int getScore() {
+        return score;
+    }
 }
